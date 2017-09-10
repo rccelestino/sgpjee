@@ -2,6 +2,7 @@ package br.com.efinoveworks.sgpjee.bean.geral;
 
 import java.io.Serializable;
 import java.util.HashMap;
+
 import java.util.Map;
 
 import javax.faces.component.UIViewRoot;
