@@ -28,13 +28,13 @@ public class ViewScopeCallBackRegistrer implements Serializable, ViewMapListener
 		if (event instanceof PostConstructViewMapEvent) {
 			PostConstructViewMapEvent viewMapEvent = (PostConstructViewMapEvent) event;
 			UIViewRoot uiViewRoot = (UIViewRoot) viewMapEvent.getComponent();
-			uiViewRoot.getViewMap().put(ViewScope.VIEW_SCOPE__CALLBACKS, new HashMap<String, Runnable>());
+			uiViewRoot.getViewMap().put(ViewScope.VIEW_SCOPE_CALLBACKS, new HashMap<String, Runnable>());
 		} else if (event instanceof PreDestroyViewMapEvent) {
 
 			PreDestroyViewMapEvent viewMapEvent = (PreDestroyViewMapEvent) event;
 			UIViewRoot uiViewRoot = (UIViewRoot) viewMapEvent.getComponent();
 			Map<String, Runnable> callbacks = (Map<String, Runnable>) uiViewRoot.getViewMap()
-					.get(ViewScope.VIEW_SCOPE__CALLBACKS);
+					.get(ViewScope.VIEW_SCOPE_CALLBACKS);
 
 			if (callbacks != null) {
 				for (Runnable c : callbacks.values()) {

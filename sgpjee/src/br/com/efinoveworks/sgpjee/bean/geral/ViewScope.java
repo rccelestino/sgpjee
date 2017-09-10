@@ -14,7 +14,7 @@ public class ViewScope implements Serializable, Scope {
 
 	private static final long serialVersionUID = 7489162231764207935L;
 
-	public static final String VIEW_SCOPE__CALLBACKS = "viewScope.callBacks";
+	public static final String VIEW_SCOPE_CALLBACKS = "viewScope.callBacks";
 
 	@Override
 	public Object get(String name, ObjectFactory<?> objectFactory) {
@@ -36,10 +36,10 @@ public class ViewScope implements Serializable, Scope {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void registerDestructionCallback(String name, Runnable runnable) {
-		Map<String, Runnable> callbacks = (Map<String, Runnable>) getViewMap().get(VIEW_SCOPE__CALLBACKS);
+		Map<String, Runnable> callbacks = (Map<String, Runnable>) getViewMap().get(VIEW_SCOPE_CALLBACKS);
 
 		if (callbacks != null) {
-			callbacks.put(VIEW_SCOPE__CALLBACKS, runnable);
+			callbacks.put(VIEW_SCOPE_CALLBACKS, runnable);
 
 		}
 
@@ -50,7 +50,7 @@ public class ViewScope implements Serializable, Scope {
 	public Object remove(String name) {
 		Object instance = getViewMap().remove(name);
 		if (instance != null) {
-			Map<String, Runnable> callBacks = (Map<String, Runnable>) getViewMap().get(VIEW_SCOPE__CALLBACKS);
+			Map<String, Runnable> callBacks = (Map<String, Runnable>) getViewMap().get(VIEW_SCOPE_CALLBACKS);
 			if (callBacks != null) {
 				callBacks.remove(name);
 			}
