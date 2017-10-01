@@ -24,6 +24,12 @@
 		<property name="hibernate.connection.autocommit">false</property>
 		<property name="hibernate.connection.pool_size">50</property>
 
+		
+		<!-- Mapeamento das Classes do Sistema -->
+		<mapping class="br.com.efinoveworks.sgpjee.model.classes.Entidade"/>
+		
+		
+		
 		<!-- Parametros de Auditoria das tabelas no Banco de Dados -->
 		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert" />
 		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-update" />
@@ -32,7 +38,7 @@
 		<listener class="org.hibernate.envers.event.AuditEventListener"	type="pre-collection-update" />
 		<listener class="org.hibernate.envers.event.AuditEventListener"	type="pre-collection-remove" />
 		
-		<!-- Mapeamento das Classes do Sistema -->
+		
 		
 		
 
