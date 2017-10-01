@@ -13,7 +13,6 @@ public class ContextLoaderListenerSgpjeeUtils extends ContextLoader implements S
 
 	private static final long serialVersionUID = -2961238190949417664L;
 
-	@SuppressWarnings("unused")
 	private static WebApplicationContext getWebApplicationContext() {
 		return WebApplicationContextUtils
 				.getWebApplicationContext(getCurrentWebApplicationContext().getServletContext());
