@@ -2,7 +2,7 @@
 <Context reloadable="true">
 
 	<Resource 
-		name="jdbc/datasouce"
+		name="jdbc/datasource"
 		auth="Container"
 		type="javax.sql.DataSource"
 		defaultAutoCommit='false'
