@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+
+	default-lazy-init="true">
+
+	<context:annotation-config />
+
+	<mvc:annotation-driven />
+
+	<mvc:default-servlet-handler />
+
+	<mvc:resources location="/resources/img" mapping="/resources/**"
+		cache-period="500" />
+
+	<!-- Declarando os pacotes que serão lidos pelo SpringFramework -->
+	<context:component-scan base-package="br.com.efinoveworks.sgpjee.controller" />
+	<context:component-scan
+		base-package="br.com.efinoveworks.sgpjee.servicos.interfaces" />
+	<context:component-scan
+		base-package="br.com.efinoveworks.sgpjee.servicos.implementacao" />
+	<context:component-scan
+		base-package="br.com.efinoveworks.sgpjee.repository.interfaces" />
+	<context:component-scan base-package="br.com.efinoveworks.sgpjee.dao.implementacao" />
+	<context:component-scan base-package="br.com.efinoveworks.sgpjee.bean.geral" />
+	<context:component-scan base-package="br.com.efinoveworks.sgpjee.bean.view" />
+	<context:component-scan base-package="br.com.efinoveworks.sgpjee.report.util" />
+	<context:component-scan base-package="br.com.efinoveworks.sgpjee.util.all" />
+	<context:component-scan base-package="br.com.efinoveworks.sgpjee.bean.grafico" />
+	<context:component-scan base-package="br.com.efinoveworks.sgpjee.controller.crud" />
+	<context:component-scan base-package="br.com.efinoveworks.sgpjee.interfacce.crud" />
+
+
+	<!-- Data Source -->
+	<bean id="springDataSource" name="springDataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="false">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/datasource</value>
+		</property>
+	</bean>
+
+	<!-- Setando o FlyWay - componente de versionamento do banco de dados -->
+	<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate"
+		lazy-init="false">
+		<property name="dataSource" ref="springDataSource" />
+		<property name="baselineOnMigrate" value="true" />
+		<property name="table" value="version" />
+		<property name="sqlMigratePrefix" value="V" />
+		<property name="sqlMigrateSeparator" value="_" />
+		<property name="enconding" value="ISO-8859-1" />
+		<property name="validateOnMigrate" value="true" />
+	</bean>
+
+	<!-- Definição do JDBC do SpringFramework -->
+
+	<bean id="transactionManager" name="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		init-method="false">
+		<property name="dataSource" ref="springDataSource" />
+	</bean>
+
+	<bean id="jdbcTemplate" name="jdbcTemplate"
+		class="br.com.efinoveworks.sgpjee.dao.implementacao.JdbcTemplateImpl">
+		<constructor-arg name="datasource" ref="springDataSource" />
+	</bean>
+
+	<bean id="simpleJdbcTemplate" name="simpleJdbcTemplate"
+		class="br.com.efinoveworks.sgpjee.dao.implementacao.SimpleJdbcTemplateImpl">
+		<constructor-arg name="datasource" ref="springDataSource" />
+	</bean>
+
+	<bean id="simpleJdbcInsertImpl" name="simpleJdbcInsertImpl"
+		class="br.com.efinoveworks.sgpjee.dao.implementacao.SimpleJdbcInsertImpl">
+		<constructor-arg name="datasource" ref="springDataSource" />
+	</bean>
+
+	<bean id="simpleJdbcClassImpl" name="simpleJdbcClassImpl"
+		class="br.com.efinoveworks.sgpjee.dao.implementacao.SimpleJdbcClassImpl">
+		<constructor-arg name="datasource" ref="springDataSource" />
+	</bean>
+
+
+	<!-- Mapeamento das páginas / telas do sistemas -->
+
+	<bean id="urlMapping" name="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
+		lazy-init="false">
+		<property name="mappings">
+			<props>
+				<prop key="/index.jsp">indexController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="viewResolver" name="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		lazy-init="false">
+		<property name="viewClass" value="org.springframework.web.servlet.viewJstlView" />
+		<property name="prefix" value="/WebContent/" />
+		<property name="suffix" value="*.jsf, *.xhtml, *.html, *.jsp, *.js" />
+	</bean>
+
+	<bean id="indexController" name="indexController"
+		class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+		lazy-init="false" />
+
+	<!-- Scope de view (integração do JSF com spring) -->
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer"
+		lazy-init="false">
+		<property name="scopes">
+			<map>
+				<entry key="view">
+					<bean class="br.com.efinoveworks.sgpjee.bean.geral.ViewScope"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="reportUtil" class="br.com.efinoveworks.sgpjee.report.util.ReportUtil"
+		lazy-init="false"/>
+		
+	<bean id="utilFramework" class="br.com.efinoveworks.sgpjee.util.UtilFramework"
+		lazy-init="false" scope="session"/>
+		
+				
+
+</beans>
