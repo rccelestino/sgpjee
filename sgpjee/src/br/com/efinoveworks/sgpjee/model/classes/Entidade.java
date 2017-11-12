@@ -29,6 +29,9 @@ public class Entidade implements Serializable {
 	@Column(name = "Senha", nullable = false, length = 100)
 	private String ent_senha = null;
 
+	@Column(name = "AtivoouInativo", nullable = true)
+	private boolean ent_ativoouinativo = false;
+
 	public Entidade() {
 
 	}
@@ -55,6 +58,14 @@ public class Entidade implements Serializable {
 
 	public void setEnt_senha(String ent_senha) {
 		this.ent_senha = ent_senha;
+	}
+
+	public boolean isEnt_ativoouinativo() {
+		return ent_ativoouinativo;
+	}
+
+	public void setEnt_ativoouinativo(boolean ent_ativoouinativo) {
+		this.ent_ativoouinativo = ent_ativoouinativo;
 	}
 
 	@Override

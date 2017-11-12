@@ -45,7 +45,31 @@
 			<concurrency-control max-sessions="1"
 				expired-url="/publico/login.jsf" error-if-maximum-exceeded="true" />
 		</session-management>
-		
+
 	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="plaintext" />
+			<jdbc-user-service data-source-ref="springDataSource"
+
+				users-by-username-query="select ent_login as usename,
+												ent_senha as password,
+												'true' as enable
+										from 	entidade 
+										where	ent_ativoouinativo = false
+										and	upper(ent_login) = upper(?)"
+
+				authorities-by-username-query="select 	u.ent_login as username,
+														a.eta_codigo as authority
+												from	entidade u
+														inner join entidadeacesso a
+															on u.ent_codigo = a.eta_ent_codigo
+												where	u.ent_ativoouinativo = true
+												and		upper(u.ent_login) = upper(?)
+				" />
+
+		</authentication-provider>
+	</authentication-manager>
 
 </b:beans>

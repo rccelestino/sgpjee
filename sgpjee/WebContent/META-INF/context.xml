@@ -19,9 +19,9 @@
         minEvictableIdleTimeMillis="60000"
 		antiJARLocking="false"
         antiResourceLocking="false"
-        username="scommerce" 
+        username="efinove" 
 		password="qwerty123" 
-		url="jdbc:postgresql://localhost:5432/scommerce?autoReconnect=true"/>
+		url="jdbc:postgresql://localhost:5432/efinove?autoReconnect=true"/>
 	/>
 	
 </Context>
