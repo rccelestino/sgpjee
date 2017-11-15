@@ -22,12 +22,9 @@
 
 	<!-- Declarando os pacotes que serão lidos pelo SpringFramework -->
 	<context:component-scan base-package="br.com.efinoveworks.sgpjee.controller" />
-	<context:component-scan
-		base-package="br.com.efinoveworks.sgpjee.servicos.interfaces" />
-	<context:component-scan
-		base-package="br.com.efinoveworks.sgpjee.servicos.implementacao" />
-	<context:component-scan
-		base-package="br.com.efinoveworks.sgpjee.repository.interfaces" />
+	<context:component-scan	base-package="br.com.efinoveworks.sgpjee.servicos.interfaces" />
+	<context:component-scan	base-package="br.com.efinoveworks.sgpjee.servicos.implementacao" />
+	<context:component-scan	base-package="br.com.efinoveworks.sgpjee.repository.interfaces" />
 	<context:component-scan base-package="br.com.efinoveworks.sgpjee.dao.implementacao" />
 	<context:component-scan base-package="br.com.efinoveworks.sgpjee.bean.geral" />
 	<context:component-scan base-package="br.com.efinoveworks.sgpjee.bean.view" />
@@ -44,27 +41,25 @@
 		<property name="jndiName">
 			<value>java:comp/env/jdbc/datasource</value>
 		</property>
-	</bean>
+	</bean> 
 
 	<!-- Setando o FlyWay - componente de versionamento do banco de dados -->
-	<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate"
-		lazy-init="false">
-		<property name="dataSource" ref="springDataSource" />
-		<property name="baselineOnMigrate" value="true" />
-		<property name="table" value="version" />
-		<property name="sqlMigratePrefix" value="V" />
-		<property name="sqlMigrateSeparator" value="_" />
-		<property name="enconding" value="ISO-8859-1" />
-		<property name="validateOnMigrate" value="true" />
+		<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate" lazy-init="false"> 
+    	<property name="dataSource" ref="springDataSource"/> 
+    	<property name="baselineOnMigrate" value="true"/>  
+    	<property name="table" value="version"/> 
+    	<property name="sqlMigrationPrefix" value="v"/> 
+    	<property name="sqlMigrationSeparator" value="_"/>
+    	<property name="encoding" value="ISO-8859-1"/>
+    	<property name="validateOnMigrate" value="true"/>
 	</bean>
 
 	<!-- Definição do JDBC do SpringFramework -->
 
-	<bean id="transactionManager" name="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-		init-method="false">
-		<property name="dataSource" ref="springDataSource" />
-	</bean>
+	<bean id="transactionManager" name="transactionManager"   
+         class="org.springframework.jdbc.datasource.DataSourceTransactionManager" lazy-init="false">
+         <property name="dataSource" ref="springDataSource"/>
+     </bean> 
 
 	<bean id="jdbcTemplate" name="jdbcTemplate"
 		class="br.com.efinoveworks.sgpjee.dao.implementacao.JdbcTemplateImpl">
@@ -128,7 +123,6 @@
 		
 	<bean id="utilFramework" class="br.com.efinoveworks.sgpjee.util.UtilFramework"
 		lazy-init="false" scope="session"/>
-		
-				
+
 
 </beans>

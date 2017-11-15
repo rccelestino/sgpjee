@@ -11,7 +11,8 @@
 	default-lazy-init="true" default-autowire="byType">
 
 	<bean id="servletAppletImprimir" name="servletAppletImprimir"
-		class="br.com.project.servlet.ServletAppletImprimir" />
+		class="br.com.efinoveworks.sgpjee.servlet.ServletAppletImprimir" />
 
 </beans>
+
 
